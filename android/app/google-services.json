@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "885015027363",
+    "project_id": "nsc2024-85674",
+    "storage_bucket": "nsc2024-85674.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885015027363:android:42cfcbeaed87f3d2df6916",
+        "android_client_info": {
+          "package_name": "net.phatphum.nsc2024.nsc2024"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885015027363-iikqvkus89vp3b2bpr3jf5d676tgcoq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4KvJ-P4i6ZC9G33YD3FCrnPn70mFKjqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885015027363-iikqvkus89vp3b2bpr3jf5d676tgcoq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

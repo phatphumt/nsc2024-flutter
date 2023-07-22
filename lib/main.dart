@@ -1,102 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:nsc2024/firebase_options.dart';
+import 'widget_tree.dart';
 
-void main() => runApp(const MaterialApp(
-      home: Home(),
-      debugShowCheckedModeBanner: false,
-    ));
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(const App());
+}
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.arrow_forward),
-      ),
-      body: Container(
-        color: const Color.fromARGB(106, 255, 255, 255),
-        child: const Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                child: Text(
-                  "Welcome!",
-                  style: TextStyle(
-                      fontSize: 40.0,
-                      fontFamily: 'VarelaRound',
-                      color: Color.fromARGB(255, 61, 66, 103)),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                child: SizedBox(
-                  width: 250,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromARGB(255, 44, 19, 64),
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      labelText: 'Email',
-                      labelStyle: TextStyle(
-                        color: Color.fromARGB(255, 44, 19, 64),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.email,
-                        size: 20,
-                        color: Color.fromARGB(255, 44, 19, 64),
-                      ),
-                    ),
-                    style: TextStyle(fontFamily: 'VarelaRound'),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                child: SizedBox(
-                  width: 250,
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromARGB(255, 44, 19, 64),
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      labelText: 'Password',
-                      labelStyle: TextStyle(
-                        color: Color.fromARGB(255, 44, 19, 64),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.password,
-                        size: 20,
-                        color: Color.fromARGB(255, 44, 19, 64),
-                      ),
-                    ),
-                    style: TextStyle(fontFamily: 'VarelaRound'),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: WidgetTree(),
     );
   }
 }
