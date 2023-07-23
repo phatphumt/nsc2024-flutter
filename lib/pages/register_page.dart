@@ -2,38 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nsc2024/auth.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   String? errorMsg = '';
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
-
-  Future<void> signInWithEmailAndPassword() async {
-    try {
-      await Auth().signInWithEmailAndPassword(
-          email: _controllerEmail.text, password: _controllerPassword.text);
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        errorMsg = e.message;
-      });
-    }
-  }
+  final TextEditingController _controllerConfirmPassword =
+      TextEditingController();
 
   Future<void> createUserWithEmailAndPassword() async {
-    try {
-      await Auth().createUserWithEmailAndPassword(
-          email: _controllerEmail.text, password: _controllerPassword.text);
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        errorMsg = e.message;
-      });
+    if (_controllerPassword.text != _controllerConfirmPassword.text) {
+      setState(() => errorMsg = 'Password doesn\'t match');
+      return;
+    } else {
+      try {
+        await Auth().createUserWithEmailAndPassword(
+            email: _controllerEmail.text, password: _controllerPassword.text);
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          errorMsg = e.message;
+        });
+      }
     }
   }
 
@@ -78,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: signInWithEmailAndPassword,
+        onPressed: createUserWithEmailAndPassword,
         child: const Icon(Icons.arrow_forward),
       ),
       body: Container(
@@ -126,13 +124,26 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                child: _inputField(
+                  'Confrim Password',
+                  _controllerConfirmPassword,
+                  true,
+                  const Icon(
+                    Icons.password,
+                    size: 20,
+                    color: Color.fromARGB(255, 44, 19, 64),
+                  ),
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/register');
+                    Navigator.pop(context);
                   },
                   child: const Text(
-                    "Register",
+                    "Login",
                     style: TextStyle(fontFamily: 'VarelaRound'),
                   ),
                 ),
