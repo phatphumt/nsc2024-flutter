@@ -37,6 +37,16 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Future<void> signInAnonymously() async {
+    try {
+      await Auth().signInAnonymously();
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMsg = e.message;
+      });
+    }
+  }
+
   Widget _inputField(String title, TextEditingController controller,
       bool hideText, Icon icon) {
     return SizedBox(
@@ -127,14 +137,26 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  child: const Text(
-                    "Register",
-                    style: TextStyle(fontFamily: 'VarelaRound'),
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
+                      child: const Text(
+                        "Register",
+                        style: TextStyle(fontFamily: 'VarelaRound'),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: signInAnonymously,
+                      child: const Text(
+                        "Continue as Guest",
+                        style: TextStyle(fontFamily: 'VarelaRound'),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
