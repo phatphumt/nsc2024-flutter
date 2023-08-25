@@ -1,3 +1,3 @@
 # nsc2024
 
-หวัดดีคร้าบ
+discontinued nsc project
